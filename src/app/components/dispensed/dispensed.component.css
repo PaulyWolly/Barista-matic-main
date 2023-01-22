@@ -1,0 +1,16 @@
+.top-100 {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.text-container {
+  position: absolute;
+  top: 25%;
+  width: 700px;
+  left: 25%;
+}
+
+.purple-color {
+  color: purple;
+  font-weight: bold;
+}

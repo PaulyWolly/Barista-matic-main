@@ -1,0 +1,9 @@
+table {
+  border: 1px solid #808080;
+}
+
+table thead .uc-title, .ingredient-title, .is-title {
+  background-color: rgb(88, 88, 88);
+  color: #c8c7c7;
+  font-weight:400 !important;
+}
