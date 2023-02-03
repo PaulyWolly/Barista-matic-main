@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "start-json-server": "json-server --watch inventoryItems.json --port 8080"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +24,7 @@
     "@ngrx/store": "^15.1.0",
     "@reduxjs/toolkit": "^1.9.1",
     "bootstrap": "^5.2.3",
-    "rxjs": "~6.6.0",
+    "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

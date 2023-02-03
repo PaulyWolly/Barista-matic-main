@@ -8,7 +8,7 @@ export const addInventoryItem = createAction(
 
 export const removeInventoryItem = createAction(
   '[InventoryItem Page] Remove InventoryItem',
-  props<{ id: string }>()
+  props<{ id: number }>()
 );
 
 export const loadInventoryItems = createAction('[InventoryItem Page] Load InventoryItems');

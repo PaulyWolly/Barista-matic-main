@@ -7,3 +7,9 @@ table thead .uc-title, .ingredient-title, .is-title {
   color: #c8c7c7;
   font-weight:400 !important;
 }
+
+.fillUp-btn {
+  position: absolute;
+  top: 48px;
+  right: 20px;
+}

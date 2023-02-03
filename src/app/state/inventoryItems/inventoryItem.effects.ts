@@ -7,7 +7,7 @@ import {
   loadInventoryItemSuccess,
   loadInventoryItemFailure,
 } from './inventoryItem.actions';
-import { InventoryItemService } from '../../inventoryItem/inventoryItem.service';
+import { InventoryItemService } from '../../services/inventoryItem.service';
 import { of, from } from 'rxjs';
 import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
