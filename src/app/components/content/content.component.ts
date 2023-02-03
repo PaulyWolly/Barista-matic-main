@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Output } from '@angular/core';
+import { DrinkService } from 'src/app/services/drink.service';
+import { DrinkInterface } from 'src/app/types/drink.interface';
 
 @Component({
   selector: 'app-content',
@@ -6,10 +9,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
+  drinks: DrinkInterface[] = [];
+  // @Output() getDrinks
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private drinkService: DrinkService
+  ) { }
 
   ngOnInit(): void {
+    // this.drinkService.getDrinks()
+    //   .subscribe((drinks:DrinkInterface[]) => {
+    //     this.drinks = drinks;
+    //   });
   }
 
+  getDrinksFromService() {
+    this.drinkService.getDrinks()
+      .subscribe((drinks:DrinkInterface[]) => {
+        this.drinks = drinks;
+      });
+  }
 }

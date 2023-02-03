@@ -26,7 +26,7 @@ export const inventoryItemReducer = createReducer(
   // Add the new inventoryItem to the inventoryItems array
   on(addInventoryItem, (state, {name, units, cost} ) => ({
     ...state,
-    inventoryItems: [...state.inventoryItems, { id: Date.now().toString(), name: name, units: units, cost: cost }],
+    inventoryItems: [...state.inventoryItems, { id: Date.now(), name: name, units: units, cost: cost }],
   })),
   // Remove the inventoryItem from the inventoryItems array
   on(removeInventoryItem, (state, { id }) => ({

@@ -10,9 +10,10 @@ import { DispensedComponent } from './components/dispensed/dispensed.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { ContentComponent } from './components/content/content.component';
 import { DrinkComponent } from './components/drink/drink.component';
-import { InvContentComponent } from './components/inv-content/inv-content.component';
+import { InvContentComponent } from './components/inventory-content/inv-content.component';
 import { OrderInventoryComponent } from './components/order-inventory/order-inventory.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
