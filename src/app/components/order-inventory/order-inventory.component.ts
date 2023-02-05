@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DrinkService } from 'src/app/services/drink.service';
-import { InventoryItemInterface } from '../../types/inventoryItem.interface';
 import { HttpClient } from '@angular/common/http';
+import { InventoryItemInterface } from 'src/app/types/inventoryItem.interface';
 
 @Component({
   selector: 'app-order-inventory',
@@ -11,7 +11,60 @@ import { HttpClient } from '@angular/common/http';
 export class OrderInventoryComponent implements OnInit {
   currentUnitsOnHand: InventoryItemInterface[] = []
   postId: any;
-  items!: any;
+  itemsArray: InventoryItemInterface[] = []
+
+  public showMessage: boolean = false;
+  updateMessage: any = 'Updating... click "Refresh" to see updated units.'
+
+  copyInventoryItems = [
+    {
+      "id": 1,
+      "name": "Coffee",
+      "unitsOnHand": 10
+    },
+    {
+      "id": 2,
+      "name": "Decaf Coffee",
+      "unitsOnHand": 10
+    },
+    {
+      "id": 3,
+      "name": "Sugar",
+      "unitsOnHand": 10
+    },
+    {
+      "id": 4,
+      "name": "Cream",
+      "unitsOnHand": 10
+    },
+    {
+      "id": 5,
+      "name": "Steamed Milk",
+      "unitsOnHand": 10
+    },
+    {
+      "id": 6,
+      "name": "Foamed Milk",
+      "unitsOnHand": 10
+    },
+    {
+      "id": 7,
+      "name": "Espresso",
+      "unitsOnHand": 10
+    },
+    {
+      "id": 8,
+      "name": "Cocoa",
+      "unitsOnHand": 10
+    },
+    {
+      "id": 9,
+      "name": "Whipped Cream",
+      "unitsOnHand": 10
+    }
+  ]
+
+
 
   constructor(
     private drinkService: DrinkService,
@@ -19,121 +72,192 @@ export class OrderInventoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  }
 
-  getCurrentUnitsOnHand() {
-    this.drinkService.getInventoryItems()
-      .subscribe(res => {
-        console.log('allCurrentItems: =====> ', res)
-
-
-        for (let key in res) {
-          console.log(key + ": " + res[key].unitsOnHand)
-          if (res[key].unitsOnHand < 10) {
-            console.log("less than 10")
-            res[key].unitsOnHand = 10
-          }
-        }
-
-
-    })
   }
 
   addAllUnits() {
-    console.log('AddAllUnits called')
+
+    const localJsonServerUrl = 'http://localhost:8080/inventoryItems'
+    const myJsonServerUrl = 'https://my-json-server.typicode.com/PaulyWolly/Barista-matic-main/inventoryItems/'
+
+    console.log('AddAllUnits called');
+    this.showMessage = true;
 
     const refillCount = 10;
 
-    this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems', {id: 0, name: '', unitsOnHand: refillCount})
-    .subscribe(data => this.items = data.unitsOnHand );
-    // .subscribe((res) => {
-    //   this.postId = res;
-    // })
+    fetch('http://localhost:8080/inventoryItems/1', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unitsOnHand: refillCount,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
-  //   async function fetchData() {
+    setTimeout(() => {
+      console.log('waiting... to put /2');
+      // this.getUpdatedItems();
+    }, 2000);
 
-  //     const response = await fetch('http://localhost:3000/users/');
-  //     const data = await response.json();
+    this.ngOnInit();
 
-  //     data.forEach(obj: InventoryItemInterface => {
-  //         Object.entries(obj).forEach(([key, value]) => {
-  //             console.log(`${key} ${value}`);
-  //             if (value < 10 ) {
-  //               value = 10
-  //             }
-  //         });
-  //         console.log('-------------------');
-  //     });
-  // }
+    fetch('http://localhost:8080/inventoryItems/2', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unitsOnHand: refillCount
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
-  //   this.http.get<InventoryItemInterface>('http://localhost:8080/inventoryItems')
-  //     .subscribe((res: InventoryItemInterface) => {
+    setTimeout(() => {
+      console.log('wating... to put /3');
+      // this.getUpdatedItems();
+    }, 2000);
 
-  //       // const response = await fetch('http://localhost:8080/inventoryItems/');
-  //       // const data = await response.json();
+    this.ngOnInit();
 
-  //       res.forEach((res: InventoryItemInterface) => {
-  //           Object.entries(res).forEach(([key, value]) => {
-  //               console.log(`${key} ${value}`);
-  //               if (value < 10) {
-  //                 value = 10
-  //               }
-  //           });
-  //           console.log('-------------------');
-  //           console.log("original items: ", res)
-  //       });
-  //   }
+    fetch('http://localhost:8080/inventoryItems/3', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unitsOnHand: refillCount
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
+    setTimeout(() => {
+      console.log('wating... to put /4');
+      // this.reloadPage();
+    }, 2000);
 
+    this.ngOnInit();
 
+    fetch('http://localhost:8080/inventoryItems/4', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unitsOnHand: 10
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
-    //   for (let keyName in JSON) {
-    //     let value = json[keyName]
-    //     if (value === '') {
-    //         json[keyName] = keyName
-    //     }
-    // }
-    // console.log("after changed items: ", this.items)
+    setTimeout(() => {
+      console.log('wating... to put /5');
+      // this.reloadPage();
+    }, 2000);
 
+    this.ngOnInit();
 
-    // const item1Body = { id: 1, name: 'Coffee', unitsOnHand: refillCount };
-    // this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/1', item1Body)
-    // .subscribe(data => this.postId = data.id );
+    fetch('http://localhost:8080/inventoryItems/5', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unitsOnHand: 10
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
-    // const item2Body = { id: 2, name: 'Decaf Coffee', unitsOnHand: refillCount };
-    // this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/2', item2Body)
-    // .subscribe(data => this.postId = data.id);
+    setTimeout(() => {
+      console.log('wating... to put /6');
+      // this.reloadPage();
+    }, 2000);
 
-    // const item3Body = { id: 3, name: 'Sugar', unitsOnHand: refillCount };
-    // this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/3', item3Body)
-    // .subscribe(data => this.postId = data.id);
+    this.ngOnInit();
 
-    // const item4Body = { id: 4, name: 'Cream', unitsOnHand: refillCount };
-    // this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/4', item4Body)
-    // .subscribe(data => this.postId = data.id);
+    fetch('http://localhost:8080/inventoryItems/6', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unitsOnHand: 10
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
-    // const item5Body = { id: 5, name: 'Steamed Milk', unitsOnHand: refillCount };
-    // this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/5', item5Body)
-    // .subscribe(data => this.postId = data.id);
+    setTimeout(() => {
+      console.log('wating... to put /7');
+      // this.reloadPage();
+    }, 2000);
 
-    // const item6Body = { id: 6, name: 'Foamed Milk', unitsOnHand: refillCount };
-    // this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/6', item6Body)
-    // .subscribe(data => this.postId = data.id);
+    this.ngOnInit();
 
-    // const item7Body = { id: 7, name: 'Espresso', unitsOnHand: refillCount };
-    // this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/7', item7Body)
-    // .subscribe(data => this.postId = data.id);
+    fetch('http://localhost:8080/inventoryItems/7', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unitsOnHand: 10
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
-    // const item8Body = { id: 8, name: 'Cocoa', unitsOnHand: refillCount };
-    // this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/8', item8Body)
-    // .subscribe(data => this.postId = data.id);
+    setTimeout(() => {
+      console.log('wating... to put /8');
+      // this.reloadPage();
+    }, 2000);
 
-    // const item9Body = { id: 9, name: 'Whipped Cream', unitsOnHand: refillCount };
-    // this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/9', item9Body)
-    // .subscribe(data => this.postId = data.id);
+    this.ngOnInit();
 
-    // this.ngOnInit();
+    fetch('http://localhost:8080/inventoryItems/8', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unitsOnHand: 10
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
-    //)}
+    setTimeout(() => {
+      console.log('wating... to put /9');
+      // this.reloadPage();
+    }, 2000);
 
-}}
+    this.ngOnInit();
+
+    fetch('http://localhost:8080/inventoryItems/9', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unitsOnHand: 10
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+
+      setTimeout(() => {
+        console.log('wating... to reload component');
+        this.reloadComponent();
+      }, 2500);
+
+  }
+
+  reloadComponent() {
+    this.ngOnInit();
+  }
+
+}
