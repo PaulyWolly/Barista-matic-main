@@ -44,7 +44,7 @@ export class InventoryComponent implements OnInit {
 
   onRefill(id: number) {
 
-    fetch('http://localhost:8080/inventoryItems/' + id, {
+    fetch('https://my-json-server.typicode.com/PaulyWolly/Barista-matic-main/inventoryItems/' + id, {
       method: 'PATCH',
       body: JSON.stringify({
         unitsOnHand: 10

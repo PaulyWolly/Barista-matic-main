@@ -1,3 +1,4 @@
+// server.js for deploy to Heroku, in order to run json-server
 const jsonServer = require('json-server')
 const server = jsonServer.create()
 const router = jsonServer.router('db.json')

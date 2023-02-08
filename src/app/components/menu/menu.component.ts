@@ -64,7 +64,7 @@ export class MenuComponent implements OnInit {
         // update content
 
         // Get Item counts: Coffee
-        this.http.get<InventoryItemInterface>('http://localhost:8080/inventoryItems/1')
+        this.http.get<InventoryItemInterface>('https://my-json-server.typicode.com/PaulyWolly/Barista-matic-main/inventoryItems/1')
           .subscribe((res) => {
             console.log('currentCoffeeItemCount: ', res.unitsOnHand)
 
@@ -73,7 +73,7 @@ export class MenuComponent implements OnInit {
 
             // Coffee ingredient update
             const drinkBody1 = { id: 1, name: 'Coffee', unitsOnHand: newCoffeeItemCount };
-            this.http.put<InventoryItemInterface>('http://localhost:8080/inventoryItems/1', drinkBody1)
+            this.http.put<InventoryItemInterface>('https://my-json-server.typicode.com/PaulyWolly/Barista-matic-main/inventoryItems/1', drinkBody1)
               .subscribe(data => this.postId = data.id);
 
           });
